@@ -1,0 +1,159 @@
+openapi: 3.0.2
+info:
+  title: ToDo-REST API by Pradeep L 19MIS0133
+  version: 0.0.1
+  contact:
+    email: pradeep.l2019@vitstudent.ac.in
+    name: Development Team
+servers:
+  - url: http://localhost:8080
+    variables: {}
+    description: localhost
+tags:
+  - name: Tasks
+paths:
+  /task:
+    summary: Rest operations for Task API
+    post:
+      summary: create a new task
+      description: ''
+      operationId: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: New Task Created
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad Request
+        '401':
+          description: unauthorize
+      tags:
+        - Tasks
+    get:
+      summary: Get all task
+      description: ''
+      operationId: ''
+      responses:
+        '201':
+          description: New Task Created
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad Request
+        '401':
+          description: unauthorize
+      tags:
+        - Tasks
+
+  /task/{id}:
+    description: Task Operation
+    get:
+      tags:
+      - Tasks
+      description: Get Tasks
+      operationId: getTasks
+      summary: Get Task
+      parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: Task Id
+      responses:
+        '200':
+          description: Success
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Task'
+                
+    put:
+      tags:
+      - Tasks
+      description: Update Tasks
+      operationId: updateTasks
+      summary: update Task
+      parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: Task Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Success
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      tags:
+      - Tasks
+      description: Delete Tasks
+      operationId: deleteTasks
+      summary: Delete Task
+      parameters:
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: Task Id
+      responses:
+        '200':
+          description: Success
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Task'
+    
+components:
+  schemas:
+    Task:
+      description: Task object
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        language:
+          type: string
+        framework:
+          type: string
+    TaskStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - DELETED
+        - COMPLETED
